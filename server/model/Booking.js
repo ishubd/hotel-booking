@@ -3,32 +3,42 @@ const { default: mongoose } = require("mongoose");
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
-const BookSchema = new Schema({
-  name: {
+const BookingSchema = new Schema({
+  fname: {
     type: String,
     required: true,
   },
-  description: {
+  address: {
     type: String,
     required: true,
   },
-  type: {
+  contact: {
+    type: Number,
+    required: true,
+  },
+  gender: {
     type: String,
     required: true,
   },
-  location: {
+  room: {
     type: String,
+    required: true,
+  },
+  checkin: {
+    type: Date,
+    required: true,
+  },
+  checkout: {
+    type: Date,
     required: true,
   },
   price: {
     type: Number,
     required: true,
   },
-  status: {
+  room_id: {
     type: String,
-    enum: ["active", "inactive"],
-    default: "active",
   },
 });
 
-module.exports = mongoose.model("Book", BookSchema);
+module.exports = mongoose.model("Booking", BookingSchema);

@@ -38,7 +38,7 @@ export default function SearchRoom() {
 
   return (
     <>
-      <div className="flex justify-center items-center mt-7">
+      <div className="container flex justify-center items-center mt-7">
         <div className="border border-stone-100 shadow-md w-1/2 flex justify-center items-center pt-6 pb-6">
           <form action="" className="w-[75%]">
             <div>

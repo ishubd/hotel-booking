@@ -23,7 +23,7 @@ export default function Navbar() {
                 </a>
               </li>
             </ul>
-            <ul className="md: flex gap-3">
+            {/* <ul className="md: flex gap-3">
               <li>
                 <Link href={"/login"}>Login</Link>
               </li>
@@ -32,7 +32,7 @@ export default function Navbar() {
                   <CiShoppingCart />
                 </Link>
               </li>
-            </ul>
+            </ul> */}
           </div>
         </nav>
         <nav className="container text-center md: flex justify-between p-7">
