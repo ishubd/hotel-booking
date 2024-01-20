@@ -24,6 +24,10 @@ const BookSchema = new Schema({
     type: Number,
     required: true,
   },
+  images: {
+    type: String,
+    required: true,
+  },
   status: {
     type: String,
     enum: ["active", "inactive"],

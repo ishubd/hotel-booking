@@ -1,55 +1,94 @@
-// "use client";
+"use client";
+import axios from "axios";
+
+import { useRouter } from "next/navigation";
+
 import { useState } from "react";
+
 // import axios from "axios";
 
 export default function AddRoom() {
   // Typescript implementation
-  //   interface FormData {
-  //     name: string;
-  //     author: string;
-  //     genre: string;
-  //     user: string;
-  //     date: any;
-  //     stock: number;
-  //     price: number;
-  //   }
+  interface RoomData {
+    name: string;
+    description: string;
+    type: string;
+    location: string;
+    price: number;
+  }
 
-  //   let data_value = {} as FormData;
+  let room_value = {} as RoomData;
 
-  //   const [data, setData] = useState(data_value);
+  const [room, setRoom] = useState(room_value);
 
-  //   function handleChange(e: any) {
-  //     setData({ ...data, [e.target.name]: e.target.value });
-  //   }
+  const router = useRouter();
 
-  //   function handleSubmit(e: any) {
-  //     e.preventDefault();
-  //     axios.post("http://localhost:8000/api/data", {
-  //       name: data.name,
-  //       author: data.author,
-  //       genre: data.genre,
-  //       user: data.user,
-  //       date: data.date,
-  //       stock: data.stock,
-  //       price: data.price,
-  //     });
-  //   }
+  function handleChange(e: any) {
+    setRoom({ ...room, [e.target.name]: e.target.value });
+  }
+
+  function handleSubmit(e: any) {
+    e.preventDefault();
+
+    axios.post("http://localhost:8000/api/data", {
+      name: room.name,
+      description: room.description,
+      type: room.type,
+      location: room.location,
+      price: room.price,
+    });
+    router.push("/room");
+  }
 
   return (
     <>
       <div className="container flex justify-center items-center mt-16">
         <div className="border border-stone-100 shadow-md w-1/2 flex justify-center items-center pt-6 pb-6">
-          <form action="" className="w-[75%]">
+          <form
+            action=""
+            className="w-[75%]"
+            onSubmit={handleSubmit}
+            encType="multipart/form-data"
+          >
             <div>
               <label htmlFor="">Hotel</label>
               <br />
               <input
                 type="text"
                 name="name"
-                // value={data.name}
-                // onChange={handleChange}
+                value={room.name}
+                onChange={handleChange}
                 className="border border-slate-400 w-full h-8"
               />
+            </div>
+            <br />
+            <div>
+              <label htmlFor="">Description</label>
+              <br />
+              <input
+                type="text"
+                name="description"
+                value={room.description}
+                onChange={handleChange}
+                className="border border-slate-400 w-full h-8"
+              />
+            </div>
+            <br />
+            <div>
+              <label htmlFor="">Type</label>
+              <br />
+
+              <select
+                name="type"
+                value={room.type}
+                onChange={handleChange}
+                className="border border-slate-400 w-full h-8"
+              >
+                <option value=""></option>
+                <option value="Deluxe">Deluxe</option>
+                <option value="Twin">Twin</option>
+                <option value="Connecting Room">Others</option>
+              </select>
             </div>
             <br />
             <div>
@@ -57,9 +96,9 @@ export default function AddRoom() {
               <br />
               <input
                 type="text"
-                name="author"
-                // value={data.author}
-                // onChange={handleChange}
+                name="location"
+                value={room.location}
+                onChange={handleChange}
                 className="border border-slate-400 w-full h-8"
               />
             </div>
@@ -72,8 +111,8 @@ export default function AddRoom() {
                 min="0.00"
                 step="100"
                 name="price"
-                // value={data.price}
-                // onChange={handleChange}
+                value={room.price}
+                onChange={handleChange}
                 className="border border-slate-400 w-full h-8"
               />
             </div>
@@ -81,7 +120,10 @@ export default function AddRoom() {
             <div>
               <label htmlFor="">Image</label>
               <br />
-              <input type="file" />
+              <input
+                type="file"
+                name="images"
+              />
             </div>
             <br />
             <div>

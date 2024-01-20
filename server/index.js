@@ -1,4 +1,7 @@
 const express = require("express");
+const fileUpload = require("express-fileupload");
+const path = require("path");
+
 const app = express();
 
 const Room = require("./model/Room");
@@ -8,6 +11,18 @@ const cors = require("cors");
 
 app.use(express.json());
 
+// Making upload folder public to access
+
+app.use("/uploads", express.static("uploads"));
+
+// global middleware npm express-fileupload
+
+app.use(
+  fileUpload({
+    limits: { fileSize: 50 * 1024 * 1024 },
+  })
+);
+
 // Cors for sharing data accross
 app.use(
   cors({
@@ -16,12 +31,22 @@ app.use(
 );
 
 // Connecting database
+
 require("./config/database");
 
 // Endpoints for room
 
 app.post("/api/data", async (req, res) => {
+
+  // For uploading image
+
   let { name, description, type, location, price } = req.body;
+
+  image_name = Date.now() + req.files.images.name;
+
+  await req.files.images.mv(path.join(__dirname, "./uploads/" + image_name));
+
+let images = image_name
 
   let room = await Room.create({
     name,
@@ -29,10 +54,10 @@ app.post("/api/data", async (req, res) => {
     type,
     location,
     price,
+    images
   });
 
   res.send(room);
-  console.log(room);
 });
 
 app.get("/api/data", async (req, res) => {

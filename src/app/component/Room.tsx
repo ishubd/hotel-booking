@@ -1,14 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import axios from "axios";
+import Image from "next/image";
 
 import { CiLocationOn } from "react-icons/ci";
 
-import Image from "next/image";
-
-import Fav from "@/app/favicon.ico";
 import { useEffect, useState } from "react";
+
+import axios from "axios";
 
 export default function Room() {
   // Fetching data from database through api
@@ -25,6 +24,8 @@ export default function Room() {
     return (
       <>
         {rooms.map((room: any): any => {
+          const image = room.images;
+
           return (
             <div
               key={room._id}
@@ -32,16 +33,19 @@ export default function Room() {
             >
               <div className="flex gap-3">
                 <div>
-                  <Image src={Fav} width={200} height={200} alt="room" />
+                  <Image
+                    src={"http://localhost:8000/uploads/" + room.images}
+                    width={200}
+                    height={200}
+                    alt="room"
+                  />
                 </div>
                 <div>
                   <p className="font-semibold text-2xl text-header">
                     {room.name}
                   </p>
                   <br />
-                  <p>
-                    Type: {room.type}
-                  </p>
+                  <p>Type: {room.type}</p>
                   <br />
                   <p>{room.description}</p>
                   <br />
