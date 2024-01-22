@@ -1,55 +1,28 @@
+"use client";
 
-// "use client";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-// import axios from "axios";
 
 export default function SearchRoom() {
-  // Typescript implementation
-//   interface FormData {
-//     name: string;
-//     author: string;
-//     genre: string;
-//     user: string;
-//     date: any;
-//     stock: number;
-//     price: number;
-//   }
+  const router = useRouter();
 
-//   let data_value = {} as FormData;
-
-//   const [data, setData] = useState(data_value);
-
-//   function handleChange(e: any) {
-//     setData({ ...data, [e.target.name]: e.target.value });
-//   }
-
-//   function handleSubmit(e: any) {
-//     e.preventDefault();
-//     axios.post("http://localhost:8000/api/data", {
-//       name: data.name,
-//       author: data.author,
-//       genre: data.genre,
-//       user: data.user,
-//       date: data.date,
-//       stock: data.stock,
-//       price: data.price,
-//     });
-//   }
+  function handleSearch(e: any) {
+    e.preventDefault();
+    router.push("/room?q=" + e.target.name.value);
+  }
 
   return (
     <>
       <div className="container flex justify-center items-center mt-7">
         <div className="border border-stone-100 shadow-md w-1/2 flex justify-center items-center pt-6 pb-6">
-          <form action="" className="w-[75%]">
+          <form className="w-[75%]" onSubmit={handleSearch}>
             <div>
               <label htmlFor="">Where</label>
               <br />
               <input
                 type="text"
                 name="name"
-                // value={data.name}
-                // onChange={handleChange}
-                className="border border-slate-400 w-full h-8"
+                className="border border-slate-400 w-full h-8 px-1"
               />
             </div>
             <br />
@@ -59,8 +32,6 @@ export default function SearchRoom() {
               <input
                 type="date"
                 name="date"
-                // value={data.date}
-                // onChange={handleChange}
                 className="border border-slate-400 w-full h-8"
               />
             </div>
@@ -71,8 +42,6 @@ export default function SearchRoom() {
               <input
                 type="date"
                 name="date"
-                // value={data.date}
-                // onChange={handleChange}
                 className="border border-slate-400 w-full h-8"
               />
             </div>

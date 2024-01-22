@@ -3,7 +3,7 @@ const { default: mongoose } = require("mongoose");
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
-const BookSchema = new Schema({
+const RoomSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -35,4 +35,4 @@ const BookSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("Book", BookSchema);
+module.exports = mongoose.model("Room", RoomSchema);

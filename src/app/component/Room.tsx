@@ -15,7 +15,7 @@ export default function Room() {
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/data").then((res) => {
+    axios.get(`http://localhost:8000/api/data`).then((res) => {
       setRooms(res.data);
     });
   }, []);
@@ -24,8 +24,6 @@ export default function Room() {
     return (
       <>
         {rooms.map((room: any): any => {
-          const image = room.images;
-
           return (
             <div
               key={room._id}

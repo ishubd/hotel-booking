@@ -1,13 +1,21 @@
 const express = require("express");
 const fileUpload = require("express-fileupload");
-const path = require("path");
+const cors = require("cors");
+
+// Connecting database
+
+require("./config/database");
+
+// routes
+const room_routes = require("./routes/room");
+const booking_routes = require("./routes/booking");
+const current_booking_routes = require("./routes/current-booking");
+const {
+  handleServerError,
+  handleResourceNotFound,
+} = require("./middleware/error");
 
 const app = express();
-
-const Room = require("./model/Room");
-const Booking = require("./model/Booking");
-
-const cors = require("cors");
 
 app.use(express.json());
 
@@ -30,97 +38,22 @@ app.use(
   })
 );
 
-// Connecting database
-
-require("./config/database");
-
 // Endpoints for room
 
-app.post("/api/data", async (req, res) => {
-
-  // For uploading image
-
-  let { name, description, type, location, price } = req.body;
-
-  image_name = Date.now() + req.files.images.name;
-
-  await req.files.images.mv(path.join(__dirname, "./uploads/" + image_name));
-
-let images = image_name
-
-  let room = await Room.create({
-    name,
-    description,
-    type,
-    location,
-    price,
-    images
-  });
-
-  res.send(room);
-});
-
-app.get("/api/data", async (req, res) => {
-  let foundRooms = await Room.find({ status: "active" });
-
-  res.send(foundRooms);
-});
+app.use("/api/data", room_routes);
 
 // Endpoints for booking
 
-app.post("/api/booking", async (req, res) => {
-  let {
-    fname,
-    address,
-    contact,
-    gender,
-    room,
-    checkin,
-    checkout,
-    price,
-    room_id,
-  } = req.body;
+app.use("/api/booking", booking_routes);
 
-  let booking = await Booking.create({
-    fname,
-    address,
-    contact,
-    gender,
-    room,
-    checkin,
-    checkout,
-    price,
-    room_id,
-  });
+// Endpoints for current booking
 
-  res.send(booking);
+app.use("/api/current-booking", current_booking_routes);
 
-  // updating room model after the room is booked
+// Handling error
 
-  async function checkStatus() {
-    const booking = await Booking.findOne().sort({ _id: -1 });
-    const booked_room = booking.room_id;
-    const room = await Room.find({ _id: booked_room });
-
-    await Room.findByIdAndUpdate(booked_room, {
-      status: "inactive",
-    });
-
-    console.log("succesful");
-  }
-
-  checkStatus();
-});
-
-app.get("/api/booking", async (req, res) => {
-  let foundBookings = await Booking.find();
-  res.send(foundBookings);
-});
-
-app.get("/api/current-booking", async (req, res) => {
-  let latestBooking = await Booking.findOne().sort({ _id: -1 });
-  res.send(latestBooking);
-});
+app.use(handleResourceNotFound);
+app.use(handleServerError);
 
 app.listen(8000, () => {
   console.log("Server is connected!");

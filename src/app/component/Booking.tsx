@@ -107,6 +107,7 @@ export default function Booking() {
                 value={booking.gender}
                 onChange={handleChange}
                 className="border border-slate-400 w-full h-8"
+                required
               >
                 <option value=""></option>
                 <option value="female">Female</option>
