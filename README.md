@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## Getting Started
 
-First, run the development server:
+Run the client server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+
+Run the client server:
+
+```bash
+node index.js
+```
+
+if nodemon is installed:
+
+```bash
+nodemon
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This application is based on:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## MVC architecture
 
-## Learn More
+#### Model (M):
 
-To learn more about Next.js, take a look at the following resources:
+Describes the business logic and data. This covers all of your business rules, database interactions, and data models.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### View (V):
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Manages the user interface and presentation layer. It is in charge of delivering data to the user and taking in feedback from them.
 
-## Deploy on Vercel
+#### Controller (C):
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Controls the data transfer between the View and the Model. After analyzing user input, it modifies the Model and changes the View.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Frontend with Next.js:
+
+A React framework called Next.js is used to create server-side rendered (SSR) and statically produced web apps offers a methodical and effective approach for developing React apps with server-side rendering for enhanced SEO and performance.
+
+### Backend with Node.js:
+
+The backend runtime is Node.js, which offers a server-side environment for managing server logic and interacting with databases makes it possible to leverage JavaScript for backend and frontend (Next.js) development.
+
+### API that is RESTful:
+
+Creating a RESTful API to facilitate front-end and back-end communication constructing a scalable, stateless, and standardized API while abiding by REST standards.
